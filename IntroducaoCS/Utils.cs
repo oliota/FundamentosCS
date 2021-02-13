@@ -39,5 +39,7 @@ namespace IntroducaoCS
             var input = Console.ReadLine();
             return (input.ToLower().Equals("s"));
         }
+
+      
     }
 }
