@@ -1,26 +1,47 @@
 ﻿using System;
+using System.Security.Cryptography;
+using static IntroducaoCS.CalculadoraCientifica;
 
 namespace IntroducaoCS
 {
     class Program
     {
+        public delegate void CalculadoraDelegate();
+
+
         static void Main(string[] args)
         {
-            CustomizarCor();
-             
-            ApresentacaoPessoal();
 
-            UtilizarCalculadora();
+            //CustomizarCor();
 
-            Utils.Pausar(true);
+            //ApresentacaoPessoal();
 
+            //UtilizarCalculadora();
+
+            //UtilizarCalculadoraCientifica();
+
+            //CalculoDireto();
+
+            ListaDeExercicios();
+
+
+
+            Utils.Pausar();
         }
-
+        private static void CustomizarCor()
+        {
+            if (Utils.ObterAprovacao("Gostaria de customizar as cores do console?"))
+            {
+                var Cores = new CoresConsole();
+                Cores.ColorirConsole();
+            }
+            Console.Clear();
+        }
         private static void ApresentacaoPessoal()
         {
             if (Utils.ObterAprovacao("Gostaria de se apresentar?"))
             {
-                var Aluno = new Aluno(); 
+                var Aluno = new Aluno();
                 Aluno.DadosFixos();
                 Aluno.MeApresentar();
             }
@@ -28,8 +49,6 @@ namespace IntroducaoCS
 
 
         }
-
-
         private static void UtilizarCalculadora()
         {
             if (Utils.ObterAprovacao("Gostaria de utilizar a calculadora?"))
@@ -40,17 +59,39 @@ namespace IntroducaoCS
             Console.Clear();
 
         }
-
-        private static void CustomizarCor()
+        private static void UtilizarCalculadoraCientifica()
         {
-            if (Utils.ObterAprovacao("Gostaria de customizar as cores do console?"))
+            if (Utils.ObterAprovacao("Gostaria de utilizar a calculadora cientifica?"))
             {
-                var Cores = new CoresConsole();
-                Cores.ColorirConsole();
+                var CalculadoraCientifica = new CalculadoraCientifica();
+                CalculadoraCientifica.Iniciar();
             }
-            Console.Clear();
+
         }
 
+        public delegate void MatematicaDelegate();
 
+        private static void CalculoDireto()
+        {
+            if (Utils.ObterAprovacao("Gostaria de utilizar fazer uma soma agora?"))
+            {
+                Matematica Matematica = new Matematica();
+                MatematicaDelegate Somar = new MatematicaDelegate(Matematica.Somar);
+                MatematicaDelegate InformarNumeros = new MatematicaDelegate(Matematica.InformarNumeros);
+                InformarNumeros();
+                Somar();
+            }
+
+        }
+
+        private static void ListaDeExercicios()
+        {
+            if (Utils.ObterAprovacao("Gostaria de ver o resultado da lista de exercicios?"))
+            {
+                var MenuDeExercicios = new MenuDeExercicios();
+                MenuDeExercicios.Iniciar();
+            }
+
+        }
     }
 }
